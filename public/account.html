@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Case Store - Account</title>
+    <link rel="stylesheet" href="..\public\styles\main.css"> <!-- Use an absolute path for CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1 class="logo">Phone Case Store</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/account">Account</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="account">
+            <h1>Your Account</h1>
+            <div class="account-info">
+                <h2>Welcome, <%= userName %>!</h2>
+                <p>Email: <%= userEmail %></p>
+                <!-- Add more user information here -->
+            </div>
+            <h2>Order History</h2>
+            <div class="order-history">
+                <% orderHistory.forEach(order => { %>
+                    <!-- Order History Item -->
+                    <div class="order-item">
+                        <h3>Order ID: <%= order.orderId %></h3>
+                        <p>Order Date: <%= order.orderDate %></p>
+                        <p>Total Amount: $<%= order.totalAmount.toFixed(2) %></p>
+                        <!-- Add more order details as needed -->
+                    </div>
+                <% }); %>
+
+                <!-- Add more order history items as needed -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Phone Case Store</p>
+    </footer>
+</body>
+</html>

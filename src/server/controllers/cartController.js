@@ -1,10 +1,10 @@
-const Cart = require('../models/cart'); // Assuming you have a Cart model
+const Cart = require('../models/cart'); 
 
 // Add a product to the user's cart
 exports.addToCart = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
-    const userId = req.user._id; // Assuming you have user authentication
+    const userId = req.user._id; 
 
     // Validate input data (you can add more validation as needed)
     if (!productId || !quantity) {
@@ -42,7 +42,7 @@ exports.addToCart = async (req, res) => {
 exports.removeFromCart = async (req, res) => {
   try {
     const { productId } = req.params;
-    const userId = req.user._id; // Assuming you have user authentication
+    const userId = req.user._id; //authentication
 
     // Find the user's cart
     const cart = await Cart.findOne({ userId });
@@ -73,7 +73,7 @@ exports.removeFromCart = async (req, res) => {
 // Get the user's cart
 exports.getCart = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming you have user authentication
+    const userId = req.user._id; //authentication
 
     // Find the user's cart
     const cart = await Cart.findOne({ userId });

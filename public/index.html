@@ -3,19 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce Website</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>Phone Case Store</title>
+    <link rel="stylesheet" href="..\public\styles\main.css"> <!-- Link to your CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <!-- Include header content here -->
+        <h1 class="logo">Phone Case Store</h1>
+        <!-- Navigation Menu -->
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Cart</a></li>
+                <li><a href="#">Account</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <!-- Main Content -->
     <main>
-        <!-- Include main content here -->
+        <!-- Product Listing -->
+        <section class="product-listing">
+            <!-- Product Card 1 -->
+            <div class="product-card">
+                <img src="product1.jpg" alt="Phone Case 1">
+                <h2>Phone Case 1</h2>
+                <p>Description of the product.</p>
+                <span class="price">$19.99</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="product-card">
+                <img src="product2.jpg" alt="Phone Case 2">
+                <h2>Phone Case 2</h2>
+                <p>Description of the product.</p>
+                <span class="price">$24.99</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+
+            <!-- Add more product cards as needed -->
+        </section>
+
+        <!-- Pagination -->
+        <section class="pagination">
+            <button class="prev-page">Previous</button>
+            <button class="next-page">Next</button>
+        </section>
     </main>
+
+    <!-- Footer -->
     <footer>
-        <!-- Include footer content here -->
+        <p>&copy; 2023 Phone Case Store</p>
     </footer>
-    <script src="scripts/main.js"></script>
 </body>
 </html>
