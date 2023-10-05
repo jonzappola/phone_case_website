@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-
 require('dotenv').config();
 
 // Middleware setup
@@ -20,20 +19,18 @@ const authRoutes = require('./routes/auth');
 app.use('/user', userRoutes);
 app.use('/cart', cartRoutes);
 app.use('/order', orderRoutes);
-app.use('/productRoutes',productRoutes);
+app.use('/product',productRoutes);
 app.use('/auth',authRoutes);
 module.exports = app;
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect('mongodb://127.0.0.1:27017/phonecase?directConnection=true', {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+   // useUnifiedTopology: true,
 }).then(() => {
     console.log('MongoDB connected');
     // Start your Express server here
-    const app = require('./app');
-    const PORT = process.env.PORT || 3000;
+    const app = require('./tempConfig');
+    const PORT = 3000;
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });

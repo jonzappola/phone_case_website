@@ -10,24 +10,30 @@ exports.listProducts = async (req, res) => {
   }
 };
 
-// Create a new product
 exports.createProduct = async (req, res) => {
   try {
-    const { name, description, price } = req.body;
+    const { name, description, price, image, compatibleModels, sku } = req.body;
     
     // Validate input data (you can add more validation as needed)
-    if (!name || !description || !price) {
-      return res.status(400).json({ error: 'Name, description, and price are required' });
+    if (!name || !price || !compatibleModels || !sku) {
+      return res.status(400).json({ error: 'Name, price, compatibleModels, and sku are required' });
     }
 
-    const newProduct = new Product({ name, description, price });
+    const newProduct = new Product({
+      name,
+      description,
+      price,
+      image,
+      compatibleModels,
+      sku,
+    });
+
     const savedProduct = await newProduct.save();
     res.json(savedProduct);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-
 // Get details of a specific product
 exports.getProduct = async (req, res) => {
   try {
@@ -51,8 +57,8 @@ exports.updateProduct = async (req, res) => {
     const { name, description, price } = req.body;
 
     // Validate input data (you can add more validation as needed)
-    if (!name || !description || !price) {
-      return res.status(400).json({ error: 'Name, description, and price are required' });
+    if (!name || !description || !price || !sku) {
+      return res.status(400).json({ error: 'Name, description, price, and sku are required' });
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(
