@@ -1,6 +1,8 @@
-require('keys').config();
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+
+require('dotenv').config();
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
@@ -22,7 +24,19 @@ app.use('/productRoutes',productRoutes);
 app.use('/auth',authRoutes);
 module.exports = app;
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}).then(() => {
+    console.log('MongoDB connected');
+    // Start your Express server here
+    const app = require('./app');
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}).catch(err => {
+    console.error('MongoDB connection error: ', err);
 });

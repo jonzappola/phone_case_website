@@ -27,7 +27,8 @@ exports.registerUser = async (req, res) => {
 
     res.json(savedUser);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error (line 30)' });
   }
 };
 
@@ -61,7 +62,7 @@ exports.loginUser = async (req, res) => {
     const token = generateToken(user); // Implement your token generation logic
     res.json({ token });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error (line 64)' });
   }
 };
 
@@ -77,7 +78,7 @@ exports.getUserProfile = async (req, res) => {
 
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error (line 80)' });
   }
 };
 
@@ -102,7 +103,7 @@ exports.updateUserProfile = async (req, res) => {
     const updatedUser = await user.save();
     res.json(updatedUser);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error (line 105)' });
   }
 };
 
