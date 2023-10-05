@@ -59,7 +59,9 @@ exports.loginUser = async (req, res) => {
     // If authentication is successful, generate and send a JWT token
 
     // Example: Generate and send a JWT token
-    const token = generateToken(user); // Implement your token generation logic
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '24h', // Set the expiration to 24 hours
+    }); // Implement your token generation logic
     res.json({ token });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error (line 64)' });
@@ -105,6 +107,13 @@ exports.updateUserProfile = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal server error (line 105)' });
   }
+};
+
+// Logout user (optional)
+exports.logoutUser = (req, res) => {
+  // Implement logout logic (e.g., destroy the user's session or JWT token)
+  // Depending on your authentication mechanism
+  // Redirect or send a success message
 };
 
 // Logout user (optional)

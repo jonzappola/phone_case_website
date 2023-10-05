@@ -4,12 +4,12 @@ const cartController = require('../controllers/cartController');
 const authMiddleware = require('../middleware/authMiddleware'); // Assuming you have authentication middleware
 
 // Add a product to the user's cart
-router.post('/add', authMiddleware, cartController.addToCart);
+router.post('/auth/add/', authMiddleware, cartController.addToCart);
 
 // Remove a product from the user's cart
-router.delete('/remove/:productId', authMiddleware, cartController.removeFromCart);
+router.delete('/auth/remove/:productId/', authMiddleware, cartController.removeFromCart);
 
 // Get the user's cart
-router.get('/get', authMiddleware, cartController.getCart);
+router.get('/auth/get/', authMiddleware, cartController.getCart);
 
 module.exports = router;

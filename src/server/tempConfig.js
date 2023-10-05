@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config('../environment_variables.env');
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
@@ -25,7 +25,7 @@ module.exports = app;
 
 mongoose.connect('mongodb://127.0.0.1:27017/phonecase?directConnection=true', {
     useNewUrlParser: true,
-   // useUnifiedTopology: true,
+   useUnifiedTopology: true,
 }).then(() => {
     console.log('MongoDB connected');
     // Start your Express server here
