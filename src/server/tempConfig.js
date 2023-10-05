@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-require('dotenv').config('../environment_variables.env');
+require('dotenv').config();
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
