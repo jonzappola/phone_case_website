@@ -10,22 +10,24 @@ exports.listProducts = async (req, res) => {
   }
 };
 
+// Create a new product
 exports.createProduct = async (req, res) => {
   try {
-    const { name, description, price, image, compatibleModels, sku } = req.body;
+    const { name, description, price, images, compatibleModels, sku, quantity } = req.body;
     
     // Validate input data (you can add more validation as needed)
-    if (!name || !price || !compatibleModels || !sku) {
-      return res.status(400).json({ error: 'Name, price, compatibleModels, and sku are required' });
+    if (!name || !price || !compatibleModels || !sku || !quantity) {
+      return res.status(400).json({ error: 'Name, price, compatibleModels, sku, and quantity are required' });
     }
 
     const newProduct = new Product({
       name,
       description,
       price,
-      image,
+      images,  
       compatibleModels,
       sku,
+      quantity,
     });
 
     const savedProduct = await newProduct.save();
@@ -34,6 +36,7 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 // Get details of a specific product
 exports.getProduct = async (req, res) => {
   try {
@@ -54,16 +57,16 @@ exports.getProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   try {
     const productId = req.params.productId;
-    const { name, description, price } = req.body;
+    const { name, description, price, images, quantity } = req.body;
 
     // Validate input data (you can add more validation as needed)
     if (!name || !description || !price || !sku) {
-      return res.status(400).json({ error: 'Name, description, price, and sku are required' });
+      return res.status(400).json({ error: 'Name, description, price, sku, and quantity are required' });
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
-      { name, description, price },
+      { name, description, price, images, sku, quantity },  // Update to accept an array of images
       { new: true }
     );
 
@@ -92,3 +95,4 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+

@@ -11,7 +11,9 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  image: String,
+  images: [{
+    type: String,
+  }],
   compatibleModels: {
     type: String,
     required: true,
@@ -19,7 +21,12 @@ const productSchema = new mongoose.Schema({
   sku:{
     type: String,
     required: true,
-  } // E.g., ["iPhone 11", "iPhone 12", "iPhone 13 Pro Max"]
+    unique: true,
+  },
+  quantity:{
+    type: Number,
+    required:true, 
+},
 });
 
 const Product = mongoose.model('Product', productSchema);

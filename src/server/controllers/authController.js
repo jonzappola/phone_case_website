@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const JWT_SECRET= process.env.JWT_SECRET;
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION;
-
 // Register a new user
 exports.register = async (req, res) => {
   try {
@@ -40,7 +39,6 @@ exports.login = async (req, res) => {
   try {
     // Validate user input (e.g., username, email, password)
     const { username, email, password } = req.body;
-
     if ((!username && !email) || !password) {
       return res.status(400).json({ message: 'Username or email and password are required.' });
     }
@@ -60,8 +58,8 @@ exports.login = async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '24h', // Set token expiration time
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRATION, // Set token expiration time
     });
 
     // Send the token to the client

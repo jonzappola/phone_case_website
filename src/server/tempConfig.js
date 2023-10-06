@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config({path:(__dirname, '../../.env')});
+const JWT_SECRET= process.env.JWT_SECRET;
+const JWT_EXPIRATION = process.env.JWT_EXPIRATION;
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
@@ -23,11 +25,13 @@ app.use('/product',productRoutes);
 app.use('/auth',authRoutes);
 module.exports = app;
 
-mongoose.connect('mongodb://127.0.0.1:27017/phonecase?directConnection=true', {
+mongoose.connect("mongodb://127.0.0.1:27017/phonecase?directConnection=true", {
     useNewUrlParser: true,
    useUnifiedTopology: true,
 }).then(() => {
     console.log('MongoDB connected');
+    console.log(JWT_SECRET);
+    console.log(JWT_EXPIRATION);
     // Start your Express server here
     const app = require('./tempConfig');
     const PORT = 3000;
