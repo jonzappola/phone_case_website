@@ -13,12 +13,12 @@ app.use(express.urlencoded({ extended: true })); // Parse form data
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/order');
-const userRoutes = require('./routes/user');
+//const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 
 
 // Mount routes
-app.use('/user', userRoutes);
+//app.use('/user', userRoutes);
 app.use('/cart', cartRoutes);
 app.use('/order', orderRoutes);
 app.use('/product',productRoutes);
