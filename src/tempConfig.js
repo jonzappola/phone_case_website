@@ -10,10 +10,10 @@ app.use(express.json()); // Parse JSON requests
 app.use(express.urlencoded({ extended: true })); // Parse form data
 
 // Define routes here
-const productRoutes = require('./routes/product');
-const cartRoutes = require('./routes/cart');
-const orderRoutes = require('./routes/order');
-const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const authRoutes = require('./routes/authRoutes');
 //const userRoutes = require('./routes/user');
 
 
