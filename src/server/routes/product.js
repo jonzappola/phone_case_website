@@ -8,6 +8,9 @@ router.get('/', productController.listProducts);
 // Create a new product
 router.post('/create/', productController.createProduct);
 
+// Define the GET route for getting a product by SKU
+router.get('/:sku/', productController.getProductBySKU);
+
 // Get details of a specific product
 router.get('/:productId/', productController.getProduct);
 

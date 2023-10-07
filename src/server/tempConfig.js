@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: true })); // Parse form data
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/order');
-//const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
+//const userRoutes = require('./routes/user');
 
 
 // Mount routes
@@ -25,7 +25,7 @@ app.use('/product',productRoutes);
 app.use('/auth',authRoutes);
 module.exports = app;
 
-mongoose.connect("mongodb://127.0.0.1:27017/phonecase?directConnection=true", {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
    useUnifiedTopology: true,
 }).then(() => {

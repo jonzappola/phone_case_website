@@ -1,14 +1,15 @@
-// authController.js
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const JWT_SECRET= process.env.JWT_SECRET;
+const tokenManager = require('../middleware/tokenManager.js');
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRATION = process.env.JWT_EXPIRATION;
+
 // Register a new user
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    
+
     // Validate input data (you can add more validation as needed)
     if (!username || !email || !password) {
       return res.status(400).json({ error: 'Username, email, and password are required' });
@@ -18,7 +19,9 @@ exports.register = async (req, res) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(409).json({ message: 'User with this email already exists. Please log in.' });
+      return res
+        .status(409)
+        .json({ message: 'User with this email already exists. Please log in.' });
     }
 
     // Hash the password before saving it to the database
@@ -40,7 +43,9 @@ exports.login = async (req, res) => {
     // Validate user input (e.g., username, email, password)
     const { username, email, password } = req.body;
     if ((!username && !email) || !password) {
-      return res.status(400).json({ message: 'Username or email and password are required.' });
+      return res
+        .status(400)
+        .json({ message: 'Username or email and password are required.' });
     }
 
     // Check if the username or email exists in the database
@@ -70,3 +75,27 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+exports.logout = async (req, res) => {
+  try {
+    // Get the JWT token from the request headers
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    // Check if the token is revoked
+    if (tokenManager.isTokenRevoked(token)) {
+      return res.status(401).json({ error: 'Token revoked. Please log in again.' });
+    }
+
+    // Revoke the token (add it to the revoked tokens list)
+    tokenManager.revokeToken(token);
+
+    res.json({ message: 'Logout successful' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+

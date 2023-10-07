@@ -14,19 +14,19 @@ const productSchema = new mongoose.Schema({
   images: [{
     type: String,
   }],
-  compatibleModels: {
+  compatibleModels: [{
     type: String,
     required: true,
-  },
-  sku:{
+  }],
+  sku:[{
     type: String,
     required: true,
     unique: true,
-  },
-  quantity:{
+  }],
+  quantity:[{
     type: Number,
     required:true, 
-},
+}],
 });
 
 const Product = mongoose.model('Product', productSchema);

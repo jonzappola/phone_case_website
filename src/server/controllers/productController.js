@@ -53,6 +53,25 @@ exports.getProduct = async (req, res) => {
   }
 };
 
+// Controller function to get a product by SKU
+exports.getProductBySKU = async (req, res) => {
+  const sku = req.params.sku;
+
+  try {
+    // Query the database for a product with the provided SKU
+    const product = await Product.findOne({ sku: sku });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 // Update product details
 exports.updateProduct = async (req, res) => {
   try {
