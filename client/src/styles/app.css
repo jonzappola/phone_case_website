@@ -1,0 +1,13 @@
+/* App.css */
+
+/* Container for the entire application */
+.App {
+  text-align: center;
+  background-color: #fff; /* Light pink background color */
+  min-height: 60vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

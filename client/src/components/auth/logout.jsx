@@ -4,7 +4,7 @@ import axios from 'axios';
 const Logout = ({ onLogout }) => {
   const handleLogout = async () => {
     try {
-      const response = await axios.post('/api/logout');
+      const response = await axios.post('/auth/logout');
 
       if (response.status === 200) {
         onLogout();

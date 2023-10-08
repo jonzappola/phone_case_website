@@ -1,0 +1,45 @@
+/* header.css */
+header {
+  background-color: #ffffff; /* Change the background color to your preferred color */
+  color: #ffffff; /* Change the text color to your preferred color */
+  padding: 10px 20px; /* Add some padding for spacing */
+  display: flex; /* Make the header horizontal */
+  justify-content: space-between; /* Push elements to the ends horizontally */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.logo {
+  font-size: 24px; /* Customize the font size for the logo */
+  font-weight: bold; /* Make the logo text bold */
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* Make the navigation horizontal */
+}
+
+.nav-links li {
+  margin-right: 25px; /* Add spacing between navigation items */
+}
+
+.login-button {
+  /* Align the login button to the right */
+  margin-left: auto;
+}
+
+.login-button a,
+.login-button button {
+  color: #ffffff; /* Change the text color of login links/buttons */
+  text-decoration: none; /* Remove underline from links */
+  background-color: #007bff; /* Change the background color of login button */
+  padding: 8px 16px; /* Add padding to the login button */
+  border-radius: 5px; /* Add rounded corners to the button */
+}
+
+.login-button a:hover,
+.login-button button:hover {
+  background-color: #2fa1ff; /* Change the background color on hover */
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
