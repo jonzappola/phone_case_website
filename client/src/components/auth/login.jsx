@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosConfig';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/login-register.css';
+import '../../styles/auth.css';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, openRegisterModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -14,31 +14,39 @@ const Login = ({ onLogin }) => {
 
   const handleLogin = async () => {
     setIsLoading(true);
-
+  
     try {
-      const response = await axios.post('/auth/login', { email, password });
-
+      const response = await axiosInstance.post('/auth/login', { email, password });
+  
       if (response.status === 200) {
-        const data = response.data;
+        const data = response.data; // Get the token from the response
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${data.token}`; // Set the Authorization header with the token
         onLogin(data.token);
+        console.log('Status Code:', response.status);
         setSuccessMessage('Login successful');
         setError(null);
-        setErrorVisible(false); // Hide error message
+        setErrorVisible(false);
         navigate('/'); // Redirect to the root directory
+      } else if (response.status === 400) {
+        const errorResponse = response.data;
+        setError(errorResponse.message); // Extract and set the error message
+        setSuccessMessage(null);
+        setErrorVisible(true);
       } else {
         setError('Login Failed');
         setSuccessMessage(null);
         setErrorVisible(true);
       }
     } catch (error) {
-      setError('An error occurred.');
+      console.error('Login error:', error);
+      setError('An error occurred. Please try again.');
       setSuccessMessage(null);
       setErrorVisible(true);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   useEffect(() => {
     if (errorVisible) {
       const hideErrorTimeout = setTimeout(() => {
@@ -55,7 +63,7 @@ const Login = ({ onLogin }) => {
     <div className="login-container">
       <h2>Login</h2>
       {successMessage && <p className="success-message">{successMessage}</p>}
-      <form onSubmit={handleLogin}>
+      <form>
         <input
           className="login-input"
           type="email"
@@ -70,15 +78,19 @@ const Login = ({ onLogin }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="login-button" type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging In...' : 'Enter'}
-        </button>
+        <div id="content">
+          <button className="login-button" type="button" onClick={handleLogin} disabled={isLoading}>
+            {isLoading ? 'Signing in...' : 'Sign in'}
+          </button>
+        </div>
       </form>
-      {errorVisible && (
-        <p className="error-message">{error}</p>
-      )}
+      {errorVisible && <p className="error-message">{error}</p>}
       <p>
-        New Customer? Register <a href="/auth/register">Here</a>.
+        New Customer? Register{' '}
+        <span className="register-link-button" onClick={openRegisterModal}>
+          Here
+        </span>
+        .
       </p>
     </div>
   );

@@ -1,12 +1,14 @@
+// App.js
 import './styles/app.css';
-import Header from './components/layout/header.jsx'; 
+import Header from './components/layout/header.jsx';
 import Footer from './components/layout/footer.jsx';
 import Login from './components/auth/login.jsx';
 import Logout from './components/auth/logout.jsx';
 import Register from './components/auth/register.jsx';
 import ProductList from './components/products/productlist.jsx';
 import React, { useState } from 'react';
-import {Routes, Route, useLocation} from 'react-router-dom'; 
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './contexts/authcontext'; // Import the AuthProvider
 
 function App() {
   const location = useLocation();
@@ -19,18 +21,22 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
+
   return (
     <div className="App">
-      {!isLoginPage && <Header isLoggedIn={isLoggedIn} onLogoutClick={handleLogout} />}
+      <AuthProvider> {/* Wrap your app with the AuthProvider */}
+        {!isLoginPage && <Header isLoggedIn={isLoggedIn} onLogoutClick={handleLogout} />}
         <main>
-        <Routes>
-          <Route exact path="/" element={<ProductList />} /> {/* Remove curly braces */}
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/register" element={<Register />} />
-          <Route path="/auth/logout" element={<Logout />} />
-        </Routes>
-      </main>
-      <Footer />
+          <Routes>
+            <Route exact path="/" element={<ProductList />} />
+            <Route path="/product" element={<ProductList />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
+            <Route path="/auth/logout" element={<Logout />} />
+          </Routes>
+        </main>
+        <Footer />
+      </AuthProvider> {/* Close the AuthProvider */}
     </div>
   );
 }

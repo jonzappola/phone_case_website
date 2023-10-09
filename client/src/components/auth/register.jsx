@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import '../../styles/login-register.css';
+import axiosInstance from '../../axiosConfig.js'; // Import axiosInstance, not axios
+import '../../styles/auth.css';
 
 const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
@@ -10,7 +10,7 @@ const Register = ({ onRegister }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('/auth/register', {
+      const response = await axiosInstance.post('/auth/register', {
         username,
         email,
         password,
@@ -19,11 +19,17 @@ const Register = ({ onRegister }) => {
       if (response.status === 201) {
         // Registration successful, trigger a login
         onRegister();
+      } else {
+        // Handle other status codes (e.g., 400 for validation errors)
+        const errorMessage = response.data.error || 'An error occurred during registration.';
+        setError(errorMessage);
       }
     } catch (err) {
       if (err.response) {
-        setError(err.response.data.error);
+        // Handle errors from the server response
+        setError(err.response.data.error || 'An error occurred during registration.');
       } else {
+        // Handle network errors or unexpected errors
         setError('An error occurred during registration.');
       }
     }

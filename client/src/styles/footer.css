@@ -1,0 +1,21 @@
+/* Footer styling */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+.footer {
+    background-color: #fab5dd; /* Match the background color to your header */
+    color: #fff; /* Text color */
+    padding: 0px 20px; /* Add padding for spacing */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    position: fixed; /* Fixed position to keep it at the bottom */
+    bottom: 0; /* Stick it to the bottom of the viewport */
+    width: 100%; /* Full width of the viewport */
+  }
+  
+  .footer-content {
+    font-size: 14px; /* Customize the font size */
+    font-family: 'Playfair Display', serif; 
+    /* Make the text bold */
+  }
+  
+  /* Add any additional styles you need for your footer */

@@ -1,45 +1,67 @@
 /* header.css */
 header {
-  background-color: #ffffff; /* Change the background color to your preferred color */
-  color: #ffffff; /* Change the text color to your preferred color */
-  padding: 10px 20px; /* Add some padding for spacing */
-  display: flex; /* Make the header horizontal */
-  justify-content: space-between; /* Push elements to the ends horizontally */
-  align-items: center; /* Align items vertically in the center */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fab5dd;
+  color: #ffffff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1000; /* Ensure the header is on top */
 }
 
 .logo {
-  font-size: 24px; /* Customize the font size for the logo */
-  font-weight: bold; /* Make the logo text bold */
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 10px; /* Push to the left */
+  transform: translateY(-50%); /* Center vertically only */
+  width: 50px; /* Adjust the width to your desired size */
+  height: auto; /* Maintain aspect ratio */
 }
-
 .nav-links {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex; /* Make the navigation horizontal */
+  align-items: center; /* Center-align items vertically */
 }
 
 .nav-links li {
-  margin-right: 25px; /* Add spacing between navigation items */
+  margin-right: 10px; /* Add spacing between navigation items */
 }
 
-.login-button {
-  /* Align the login button to the right */
-  margin-left: auto;
-}
-
-.login-button a,
-.login-button button {
-  color: #ffffff; /* Change the text color of login links/buttons */
+/* Style the links */
+.nav-links a {
   text-decoration: none; /* Remove underline from links */
-  background-color: #007bff; /* Change the background color of login button */
-  padding: 8px 16px; /* Add padding to the login button */
-  border-radius: 5px; /* Add rounded corners to the button */
+  color: #ffffff; /* White text color for links */
+  font-weight: bold; /* Make link text bold */
+  transition: color 0.3s; /* Add a smooth transition effect for link color */
 }
 
-.login-button a:hover,
-.login-button button:hover {
-  background-color: #2fa1ff; /* Change the background color on hover */
-  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+.nav-links a:hover {
+  color: #ff5599; /* Pink color on hover */
+}
+
+/* Push the buttons to the top right */
+.login-button,
+.register-button {
+  background-color: #5e677a;
+  color: #fff;
+  padding: 7px 11px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+  margin-right: auto; /* Push buttons to the top right */
+}
+
+.login-button:hover,
+.register-button:hover {
+  background-color: #2f4164;
 }
