@@ -26,7 +26,7 @@ const Login = ({ onLogin, openRegisterModal }) => {
         setSuccessMessage('Login successful');
         setError(null);
         setErrorVisible(false);
-        navigate('/'); // Redirect to the root directory
+        navigate('/products'); // Redirect to the root directory
       } else if (response.status === 400) {
         const errorResponse = response.data;
         setError(errorResponse.message); // Extract and set the error message

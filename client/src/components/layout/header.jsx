@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from './modal';
 import Login from '../auth/login';
 import Register from '../auth/register';
@@ -6,11 +6,13 @@ import Logout from '../auth/logout'; // Import the Logout component
 import logoImage from '../../logo.svg';
 import '../../styles/header.css';
 import '../../styles/auth.css';
+import { useAuth } from '../../contexts/authcontext'; // Import the useAuth hook
 
-const Header = ({ isLoggedIn, onLogoutClick, onLoginClick }) => {
+const Header = () => {
+  const { state, login, logout } = useAuth(); // Access authentication state
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
+  const isAuthenticated = state.user !== null;
 
   const openLoginModal = () => {
     setShowLoginModal(true);
@@ -25,34 +27,20 @@ const Header = ({ isLoggedIn, onLogoutClick, onLoginClick }) => {
     setShowRegisterModal(false);
   };
 
-  // Define the handleLogin function here or use another function
   const handleLogin = (token) => {
-    // Handle login logic
-    setIsAuthenticated(true);
-    // Close the login modal or perform any other actions
+    login(token);
     closeModals();
   };
 
-  // Define the handleLogout function
-  const handleLogout = (logout) => {
-    // Handle logout logic
-    return async () => {
-      await logout();
-      setIsAuthenticated(false);
-      onLogoutClick(); // Call the provided onLogoutClick callback
-    };
+  const handleLogout = () => {
+    logout();
   };
-
-  useEffect(() => {
-    setIsAuthenticated(isLoggedIn);
-  }, [isLoggedIn]);
 
   return (
     <header>
       <nav>
-        <img src={logoImage} className="logo" />
+        <img src={logoImage} className="logo" alt="" />
         <ul className="nav-links">
-          {/* Render "Login" and "Register" buttons only if not authenticated */}
           {!isAuthenticated && (
             <li>
               <button className="login-button" onClick={openLoginModal}>
@@ -69,10 +57,8 @@ const Header = ({ isLoggedIn, onLogoutClick, onLoginClick }) => {
           )}
         </ul>
       </nav>
-      {/* Render "Logout" button only if authenticated */}
-      {isAuthenticated && <Logout onLogout={onLogoutClick} handleLogout={handleLogout} />}
+       {isAuthenticated && <Logout onLogout={handleLogout} />} {/* Pass the onLogout callback */}
       <Modal isOpen={showLoginModal} onClose={closeModals}>
-        {/* Pass the handleLogin function to the Login component as onLogin */}
         <Login onClose={closeModals} onLogin={handleLogin} openRegisterModal={openRegisterModal} />
       </Modal>
       <Modal isOpen={showRegisterModal} onClose={closeModals}>

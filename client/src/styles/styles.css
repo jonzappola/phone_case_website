@@ -1,0 +1,7 @@
+body {
+    background-image: url('../background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: Fixed background for a parallax effect */
+  }
+  
