@@ -1,15 +1,5 @@
 const Product = require('../models/product');
 
-// List all products
-exports.listProducts = async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
 // Create a new product
 exports.createProduct = async (req, res) => {
   try {
@@ -60,6 +50,31 @@ exports.getProductBySKU = async (req, res) => {
   try {
     // Query the database for a product with the provided SKU
     const product = await Product.findOne({ sku: sku });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Controller function to get a product by name
+exports.getProductByName = async (req, res) => {
+  const name = req.params.name;
+
+  try {
+    // Try to find the product by name with dashes
+    let product = await Product.findOne({ name: name });
+
+    if (!product) {
+      // If not found, try to find the product by name without dashes
+      const nameWithoutDashes = name.replace(/-/g, ' '); // Remove dashes
+      product = await Product.findOne({ name: nameWithoutDashes });
+    }
 
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });

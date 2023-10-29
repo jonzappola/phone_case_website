@@ -1,6 +1,6 @@
-//Simple product schema (since we only have phone cases)
 const mongoose = require('mongoose');
 
+// Define the schema and use the "products" collection in the "phonecase" database
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -18,16 +18,16 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   }],
-  sku:[{
+  sku: [{
     type: String,
     required: true,
     unique: true,
   }],
-  quantity:[{
+  quantity: [{
     type: Number,
-    required:true, 
-}],
-});
+    required: true,
+  }],
+}, { collection: 'products' }); // Specify the collection name
 
 const Product = mongoose.model('Product', productSchema);
 
